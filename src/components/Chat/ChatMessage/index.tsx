@@ -15,13 +15,8 @@ function ChatMessage() {
         <div className="special-div">
           <p style={{ marginTop: "0px", fontWeight: "bold" }}>Ali Hamza</p>
           <p style={{ marginTop: "-15px" }}>
-            hi thererhi thererhi thererhi thererhi thererhi thererhi thererhi
-            thererhi thererhi thererhi thererhi thererhi thererhi thererhi
-            thererhi thererhi thererhi thererhi thererhi thererhi thererhi
-            thererhi thererhi thererhi thererhi thererhi thererhi thererhi
-            thererhi thererhi thererhi thererhi thererhi thererhi thererhi
-            thererhi thererhi thererhi thererhi thererhi thererhi thererhi
-            thererhi thererhi thererhi therer
+            hi thererhi thererhi
+            This is testing phase.
           </p>
         </div>
       </div>

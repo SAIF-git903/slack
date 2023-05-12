@@ -1,33 +1,65 @@
-import { Divider, Input } from "antd";
+import {
+  Avatar,
+  Divider,
+  Dropdown,
+  Input,
+  Mentions,
+  MenuProps,
+  Space,
+} from "antd";
 import { collection, getDocs, query, where } from "firebase/firestore";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { db } from "../../firebase/firebaseConfig";
 import "./style.css";
+import store from "../../Mst/Mst";
 
 function DirectMessagesPage() {
-  const InputRef = React.useRef<any>("");
-  const [searchTerm, setSearchTerm] = useState("");
   const [searchedUser, setSearched] = useState<any>([]);
+  const [loading, setLoading] = useState(false);
+  const ref = useRef<any>();
 
   useEffect(() => {
-    InputRef.current.focus();
+    ref.current.focus();
   }, []);
 
-  async function getData() {
-    console.log(searchTerm, "search");
+  async function getData(search: string) {
     const q = query(
       collection(db, "users"),
-      where("displayName", ">=", searchTerm),
-      where("displayName", "<=", searchTerm + "\uf8ff")
+      where("displayName", ">=", search),
+      where("displayName", "<=", search + "\uf8ff")
     );
     const querySnapshot = await getDocs(q);
+    const users: any[] = [];
     querySnapshot.forEach((doc) => {
-      // setSearched(doc.data());
-      console.log(doc.data());
+      if (search.length <= 3) {
+        let singleUser = {
+          name: doc.data(),
+          id: doc.id,
+        };
+        users.push(singleUser);
+      }
     });
+    setSearched(users);
+    setLoading(false);
   }
 
-  console.log(searchedUser);
+  const onSearch = (search: string) => {
+    ref.current = search;
+    setLoading(!!search);
+    getData(search);
+  };
+
+  const handleNewDirectMsgUser = (user: {
+    name: { displayName: string };
+    id: string;
+  }) => {
+    store.addNewDirectMsgUser({
+      UID: user.id,
+      displayName: user.name.displayName,
+    });
+  };
+
+  console.log(searchedUser, "user");
 
   return (
     <div>
@@ -38,19 +70,38 @@ function DirectMessagesPage() {
       <div style={{ marginLeft: "25px" }}>
         <div style={{ display: "flex", gap: "10px" }}>
           <p style={{ color: "grey" }}>To:</p>
-          <input
-            className="direct-msg-page-inp"
-            placeholder="@somebody or somebody@example.com"
-            ref={InputRef}
-            onChange={(e) => {
-              setSearchTerm(e.target.value);
-              getData();
+          <Mentions
+            style={{
+              width: "100%",
+              border: "none",
+              outline: "none",
+              boxShadow: "none",
             }}
+            loading={loading}
+            onSearch={onSearch}
+            ref={ref}
+            className="centered"
+            placeholder="@somebody or somebody@example.com"
+            options={searchedUser.map(
+              (user: { name: { displayName: string }; id: string }) => ({
+                key: user.name.displayName,
+                value: user.name.displayName,
+                className: "antd-demo-dynamic-option",
+                label: (
+                  <div
+                    className="onchange-modal-open"
+                    onClick={() => handleNewDirectMsgUser(user)}
+                  >
+                    <Avatar shape="square" size={"small"} />
+                    <strong>{user.name.displayName}</strong>
+                  </div>
+                ),
+              })
+            )}
           />
         </div>
       </div>
       <Divider style={{ margin: "0" }} />
-      <div className="search-result-user"></div>
     </div>
   );
 }

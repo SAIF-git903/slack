@@ -4,10 +4,17 @@
   width: 100%;
 }
 
-.direct-msg-page-inp::placeholder {
-  font-size: 15px;
-}
 .search-result-user {
   width: 90%;
   height: fit-content;
+}
+
+.antd-demo-dynamic-option{
+  width: 500px;
+}
+
+.onchange-modal-open{
+  display: flex;
+  gap: 10px;
+  height: 22px;
 }

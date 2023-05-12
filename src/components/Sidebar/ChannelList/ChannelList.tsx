@@ -1,11 +1,20 @@
+import React from "react"
 import { Avatar } from "antd";
 import { LockOutlined } from "@ant-design/icons";
 import { SideBarListItemProps } from "../../../utils/types/type";
+import { useNavigate } from "react-router-dom";
 import "./style.css";
 
 const ChannelList = ({ isMessage, listTitle }: SideBarListItemProps) => {
+  const navigate = useNavigate()
+  const [isActive, setIsActive] = React.useState(false);
+  const handleClick = () => {
+    navigate("/")
+  }
+  
+  
   return (
-    <div className="channelList-main-container">
+    <div className="channelList-main-container" onClick={handleClick}>
       <div className="channelList-sub-container">
         {!isMessage ? (
           <div className="centered" style={{ paddingLeft: "10px" }}>
