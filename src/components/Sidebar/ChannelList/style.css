@@ -1,0 +1,23 @@
+.channelList-main-container {
+  cursor: pointer;
+}
+
+.channelList-sub-container {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 12px;
+  gap: 10px;
+  height: 26px;
+  color: var(--sidebar-primary-inactive-color);
+}
+
+.channelList-main-container:hover .channelList-sub-container {
+  border-radius: 7px;
+  background-color: var(--sidebar-primary-inactive-bg-color);
+}
+
+.channel-list-para-div {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
