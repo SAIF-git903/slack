@@ -1,3 +1,4 @@
+import { Divider } from "antd";
 import { collection, getDocs, query } from "firebase/firestore";
 import React, { useEffect } from "react";
 import { ReactNode } from "react";
@@ -11,21 +12,23 @@ type SideBarProps = {
 };
 
 const SideBar = () => {
-  async function getData() {
-    const q = query(collection(db, "users"));
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((doc) => {
-      console.log(doc.id, " => ", doc.data());
-    });
-  }
+  // async function getData() {
+  //   const q = query(collection(db, "users"));
+  //   const querySnapshot = await getDocs(q);
+  //   querySnapshot.forEach((doc) => {
+  //     console.log(doc.id, " => ", doc.data());
+  //   });
+  // }
 
-  useEffect(() => {
-    getData();
-  }, []);
+  // useEffect(() => {
+  //   // getData();
+  // }, []);
 
   return (
     <div style={{ marginTop: "30px" }}>
       <SideComponent>
+        <ChannelList isMessage={false} listTitle="Direct messages" />
+        <Divider />
         <ItemDropDown title="Channel" isPlus={false} />
         <ChannelList isMessage={false} listTitle={"assesment-test-interns"} />
         <div style={{ marginTop: "20px" }}>

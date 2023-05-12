@@ -8,6 +8,7 @@ body {
   padding: 0;
 
   font-family: Slack-Lato, Slack-Fractions, appleLogo, sans-serif;
+  overflow: hidden;
 }
 
 .centered {

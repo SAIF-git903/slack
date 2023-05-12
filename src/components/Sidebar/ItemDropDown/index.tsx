@@ -2,12 +2,18 @@ import React, { useState } from "react";
 import { CaretDownOutlined, PlusOutlined } from "@ant-design/icons";
 import "./style.css";
 import { ItemDropDownProps } from "../../../utils/types/type";
+import { useNavigate } from "react-router-dom";
 
 function ItemDropDown({ title, isPlus }: ItemDropDownProps) {
   const [caretRotation, setCaretRotation] = useState(0);
+  const navigate = useNavigate();
 
   const handleCaretClick = () => {
     setCaretRotation(270);
+  };
+
+  const handlePlusClick = () => {
+    navigate("/direct-message");
   };
 
   return (
@@ -25,7 +31,7 @@ function ItemDropDown({ title, isPlus }: ItemDropDownProps) {
       </div>
       {isPlus && (
         <div className="centered dropdown-plus-icon">
-          <PlusOutlined />
+          <PlusOutlined onClick={handlePlusClick} />
         </div>
       )}
     </div>

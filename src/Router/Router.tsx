@@ -10,6 +10,9 @@ import Header from "../components/Header/Header";
 import SideBar from "../components/Sidebar/SideBar";
 import Chat from "../components/Chat/Chat.";
 import "./style.css";
+import { Route, Routes } from "react-router-dom";
+import ChatPage from "../pages/Chat";
+import DirectMessagesPage from "../pages/DirectMessage";
 
 function Router() {
   // let participantId = "9tGXtUlfYKbuQpJCGgQZCzcb0v33";
@@ -53,8 +56,11 @@ function Router() {
         <div className="sidebar-main-container">
           <SideBar />
         </div>
-        <div>
-          <Chat />
+        <div style={{ width: "100%" }}>
+          <Routes>
+            <Route path="/" element={<ChatPage />} />
+            <Route path="/direct-message" element={<DirectMessagesPage />} />
+          </Routes>
         </div>
       </div>
     </div>

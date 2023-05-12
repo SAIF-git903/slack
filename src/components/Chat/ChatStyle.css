@@ -1,0 +1,14 @@
+.overflow-chat-scroll::-webkit-scrollbar {
+  width: 7px;
+}
+.overflow-chat-scroll::-webkit-scrollbar-thumb {
+  background-color: #aa9f9f;
+  border-radius: 5px;
+  margin: 5px;
+  scroll-behavior: auto;
+}
+
+.overflow-chat-scroll {
+  overflow: auto;
+  height: 62vh;
+}

@@ -1,20 +1,25 @@
-import { Input } from "antd";
-import React, { useEffect, useRef, useState } from "react";
+import { Avatar, Badge, Divider } from "antd";
+import "./style.css";
 
 function ChatHeader() {
-  const [search, setSearch] = useState("");
-  const inputRef = useRef<any>("");
-
-  useEffect(() => {
-    inputRef.current.focus();
-  }, []);
-
   return (
-    <Input
-      placeholder="search person"
-      onChange={(e) => setSearch(e.target.value)}
-      ref={inputRef}
-    />
+    <>
+      <div className="chatheader-avatar-style">
+        <div className="centered">
+          <Badge dot color={"green"}>
+            <Avatar
+              shape="square"
+              size={"small"}
+              src="https://ca.slack-edge.com/T03A7U0BX41-U04AM2QLZCZ-1bcd531b1e51-512"
+            />
+          </Badge>
+        </div>
+        <div className="centered">
+          <h3>Ali Hamza</h3>
+        </div>
+      </div>
+      <Divider style={{ margin: "10px 0 0 0 " }} />
+    </>
   );
 }
 

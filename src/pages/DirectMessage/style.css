@@ -1,0 +1,13 @@
+.direct-msg-page-inp {
+  border: none;
+  outline: none;
+  width: 100%;
+}
+
+.direct-msg-page-inp::placeholder {
+  font-size: 15px;
+}
+.search-result-user {
+  width: 90%;
+  height: fit-content;
+}
