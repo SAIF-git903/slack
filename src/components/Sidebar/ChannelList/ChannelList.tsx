@@ -9,15 +9,16 @@ const ChannelList = ({
   isMessage,
   listTitle,
   UserId,
+  onClick
 }: SideBarListItemProps) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate("/", { state: { listTitle, UserId } });
+    navigate(`/${UserId}`, { state: { listTitle, UserId } });
   };
 
   return (
-    <div className="channelList-main-container" onClick={handleClick}>
+    <div className="channelList-main-container" onClick={onClick || handleClick}>
       <div className="channelList-sub-container">
         {!isMessage ? (
           <div className="centered" style={{ paddingLeft: "10px" }}>

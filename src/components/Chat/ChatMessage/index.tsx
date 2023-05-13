@@ -1,8 +1,13 @@
 import { Avatar } from "antd";
 import React from "react";
 import "./style.css";
+import { DocumentData, doc, onSnapshot } from "firebase/firestore";
+import { db } from "../../../firebase/firebaseConfig";
 
-function ChatMessage() {
+function ChatMessage({ senderName, message }: any) {
+
+  
+  
   return (
     <div>
       <div style={{ display: "flex", gap: "10px", marginLeft: "25px" }}>
@@ -13,11 +18,8 @@ function ChatMessage() {
           />
         </div>
         <div className="special-div">
-          <p style={{ marginTop: "0px", fontWeight: "bold" }}>Ali Hamza</p>
-          <p style={{ marginTop: "-15px" }}>
-            hi thererhi thererhi
-            This is testing phase.
-          </p>
+          <p style={{ marginTop: "0px", fontWeight: "bold" }}>{senderName}</p>
+          <p style={{ marginTop: "-15px" }}>{message}</p>
         </div>
       </div>
     </div>

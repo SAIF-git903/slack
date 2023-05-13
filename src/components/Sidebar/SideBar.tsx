@@ -6,12 +6,15 @@ import { db } from "../../firebase/firebaseConfig";
 import ChannelList from "./ChannelList/ChannelList";
 import DirectMessageList from "./DirectMessageList/DirectMessageList";
 import ItemDropDown from "./ItemDropDown";
+import { useNavigate } from "react-router-dom";
 
 type SideBarProps = {
   children: ReactNode;
 };
 
 const SideBar = () => {
+
+  const navigate = useNavigate()
   // async function getData() {
   //   const q = query(collection(db, "users"));
   //   const querySnapshot = await getDocs(q);
@@ -27,10 +30,10 @@ const SideBar = () => {
   return (
     <div style={{ marginTop: "30px" }}>
       <SideComponent>
-        <ChannelList isMessage={false} listTitle="Direct messages" />
+        <ChannelList isMessage={false} listTitle="Direct messages" onClick={() => navigate("/direct-message")}/>
         <Divider />
         <ItemDropDown title="Channel" isPlus={false} />
-        <ChannelList isMessage={false} listTitle={"assesment-test-interns"} />
+        <ChannelList isMessage={false} listTitle={"assesment-test-interns"} onClick={() => ""}/>
         <div style={{ marginTop: "20px" }}>
           <ItemDropDown title="Direct Message" isPlus={true} />
           <DirectMessageList />

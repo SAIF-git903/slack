@@ -58,7 +58,7 @@ function Router() {
         </div>
         <div style={{ width: "100%" }}>
           <Routes>
-            <Route path="/" element={<ChatPage />} />
+            <Route path="/:userId" element={<ChatPage />} />
             <Route path="/direct-message" element={<DirectMessagesPage />} />
           </Routes>
         </div>
