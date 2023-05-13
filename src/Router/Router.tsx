@@ -13,6 +13,7 @@ import "./style.css";
 import { Route, Routes } from "react-router-dom";
 import ChatPage from "../pages/Chat";
 import DirectMessagesPage from "../pages/DirectMessage";
+import SignUp from "../pages/SignUp";
 
 function Router() {
   // let participantId = "9tGXtUlfYKbuQpJCGgQZCzcb0v33";
@@ -51,18 +52,29 @@ function Router() {
 
   return (
     <div className="router-route-cont">
-      <Header />
-      <div className="main-container">
-        <div className="sidebar-main-container">
-          <SideBar />
-        </div>
-        <div style={{ width: "100%" }}>
-          <Routes>
-            <Route path="/:userId" element={<ChatPage />} />
-            <Route path="/direct-message" element={<DirectMessagesPage />} />
-          </Routes>
-        </div>
-      </div>
+      {false ? (
+        <Routes>
+          <Route path="/" element={<SignUp />} />
+        </Routes>
+      ) : (
+        <>
+          <Header />
+          <div className="main-container">
+            <div className="sidebar-main-container">
+              <SideBar />
+            </div>
+            <div style={{ width: "100%" }}>
+              <Routes>
+                <Route path="/:userId" element={<ChatPage />} />
+                <Route
+                  path="/direct-message"
+                  element={<DirectMessagesPage />}
+                />
+              </Routes>
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 }

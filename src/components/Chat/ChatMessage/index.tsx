@@ -1,13 +1,11 @@
-import { Avatar } from "antd";
+import { Avatar, Divider } from "antd";
 import React from "react";
 import "./style.css";
 import { DocumentData, doc, onSnapshot } from "firebase/firestore";
 import { db } from "../../../firebase/firebaseConfig";
+import moment from "moment"
 
-function ChatMessage({ senderName, message }: any) {
-
-  
-  
+function ChatMessage({ senderName, message, timestamp }: any) {
   return (
     <div>
       <div style={{ display: "flex", gap: "10px", marginLeft: "25px" }}>
@@ -18,7 +16,12 @@ function ChatMessage({ senderName, message }: any) {
           />
         </div>
         <div className="special-div">
-          <p style={{ marginTop: "0px", fontWeight: "bold" }}>{senderName}</p>
+          <div style={{ display: "flex", gap:"10px" }}>
+            <p style={{ marginTop: "0px", fontWeight: "bold" }}>{senderName}</p>
+            <div style={{  marginTop:"-15px", fontSize:"12px"}} className="centered"> 
+              <p>{timestamp}</p>
+            </div>
+          </div>
           <p style={{ marginTop: "-15px" }}>{message}</p>
         </div>
       </div>

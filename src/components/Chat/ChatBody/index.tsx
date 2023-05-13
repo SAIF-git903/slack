@@ -1,13 +1,14 @@
-import * as React from "react"
+import * as React from "react";
 import { ReactNode } from "react";
 import ChatMessage from "../ChatMessage";
 import { DocumentData, doc, onSnapshot } from "firebase/firestore";
 import { db } from "../../../firebase/firebaseConfig";
+import { Divider } from "antd";
 
 interface ChatData {
   displayName: string;
   text: string;
-  timestamp: string;
+  time: string;
 }
 
 type ChatBodyProps = {
@@ -18,25 +19,47 @@ const Chat = (props: ChatBodyProps) => {
   return <div>{props.children}</div>;
 };
 
-const ChatBody = ({receiverName, chatId} : any) => {
+const ChatBody = ({ receiverName, chatId }: any) => {
   const [chatMessages, setChatMessages] = React.useState<ChatData[]>([]);
+  // const [msgTime, setMsgTime] = React.useState<string>("")
 
   const chatRef = doc(db, "chats", chatId);
   onSnapshot(chatRef, (doc) => {
     const chatData = doc.data() as DocumentData;
     const messages: ChatData[] = chatData?.messages ?? [];
+    // const msgTime: string = chatData?.time
+    // setMsgTime(msgTime)
     setChatMessages(messages);
   });
+
+  // console.log(msgTime, "msgTime")
   
   return (
     <Chat>
-      {
-       chatMessages.map((chat: ChatData, index: number) => {
-          return (
-            <ChatMessage key={index} senderName={chat.displayName} chatId={chatId} message={chat.text} timestamp={chat.timestamp}/>
-          )
-        })
-      }
+      {chatMessages.map((chat: ChatData, index: number) => {
+        return (
+          <>
+            {/* <Divider>
+              <p
+                style={{
+                  border: "1px solid grey",
+                  padding: " 0 10px",
+                  borderRadius: "15px",
+                }}
+              >
+                Tuesday 01:05
+              </p>
+            </Divider> */}
+            <ChatMessage
+              key={index}
+              senderName={chat.displayName}
+              chatId={chatId}
+              message={chat.text}
+              timestamp={chat.time}
+            />
+          </>
+        );
+      })}
     </Chat>
   );
 };

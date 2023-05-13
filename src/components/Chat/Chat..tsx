@@ -11,7 +11,7 @@ import { doc, getDoc, setDoc } from "firebase/firestore";
 
 function Chat() {
   const location = useLocation();
-  const [chatRoomId, setChatRoomId] = React.useState<string>()
+  const [chatRoomId, setChatRoomId] = React.useState<string>();
   useEffect(() => {
     console.log(location.state);
   }, [location.state]);
@@ -20,7 +20,7 @@ function Chat() {
   const otherUserUuid = "user2";
   const chatId = [currentUserUuid, otherUserUuid].sort().join(":"); // e.g. "user1:user2"
   setTimeout(() => {
-    setChatRoomId(chatId)
+    setChatRoomId(chatId);
   }, 1000);
   // Create a new chat document if it doesn't exist already
   const chatRef = doc(db, "chats", chatId);
@@ -33,18 +33,18 @@ function Chat() {
       });
     }
   });
-  
-  console.log(chatId, "Chat Id")
-  
+
+  console.log(chatId, "Chat Id");
+
   return (
     <React.Fragment>
       <ChatHeader receiverName={location?.state?.listTitle} />
       <div className="overflow-chat-scroll">
         <ChatHeader2 receiverName={location?.state?.listTitle} />
         <Divider />
-        <ChatBody receiverName={location?.state?.listTitle} chatId={chatId}/>
+        <ChatBody receiverName={location?.state?.listTitle} chatId={chatId} />
       </div>
-      <ChatInput chatId={chatId}/>
+      <ChatInput chatId={chatId} />
     </React.Fragment>
   );
 }

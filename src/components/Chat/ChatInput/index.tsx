@@ -4,6 +4,7 @@ import { Button, Input } from "antd";
 import "./style.css";
 import { arrayUnion, doc, updateDoc } from "firebase/firestore";
 import { db } from "../../../firebase/firebaseConfig";
+import moment from "moment"
 
 interface ChatInputProps {
   chatId: string;
@@ -23,7 +24,7 @@ function ChatInput(props: ChatInputProps) {
       text: inputMsg,
       displayName: "Saif",
       senderUid: "user1",
-      timestamp: new Date().toISOString(),
+      time: moment().format('LT'), 
       isRead: false
     };
     
