@@ -6,4 +6,5 @@ export interface ItemDropDownProps {
 export interface SideBarListItemProps {
   isMessage: boolean;
   listTitle: string;
+  UserId?: string
 }

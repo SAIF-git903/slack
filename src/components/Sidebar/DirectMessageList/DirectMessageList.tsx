@@ -7,7 +7,7 @@ function DirectMessageList() {
   return (
     <>
       {store.directMessageUser.map((i) => {
-        return <ChannelList isMessage={true} listTitle={i.displayName} />;
+        return <ChannelList isMessage={true} listTitle={i.displayName} UserId={i.UID} />;
       })}
     </>
   );
