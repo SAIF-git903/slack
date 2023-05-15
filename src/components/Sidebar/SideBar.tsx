@@ -13,8 +13,7 @@ type SideBarProps = {
 };
 
 const SideBar = () => {
-
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   // async function getData() {
   //   const q = query(collection(db, "users"));
   //   const querySnapshot = await getDocs(q);
@@ -30,10 +29,18 @@ const SideBar = () => {
   return (
     <div style={{ marginTop: "30px" }}>
       <SideComponent>
-        <ChannelList isMessage={false} listTitle="Direct messages" onClick={() => navigate("/direct-message")}/>
+        <ChannelList
+          isMessage={false}
+          listTitle="Direct messages"
+          onClick={() => navigate("/")}
+        />
         <Divider />
         <ItemDropDown title="Channel" isPlus={false} />
-        <ChannelList isMessage={false} listTitle={"assesment-test-interns"} onClick={() => ""}/>
+        <ChannelList
+          isMessage={false}
+          listTitle={"assesment-test-interns"}
+          onClick={() => ""}
+        />
         <div style={{ marginTop: "20px" }}>
           <ItemDropDown title="Direct Message" isPlus={true} />
           <DirectMessageList />

@@ -8,6 +8,7 @@ const DirectMsgUser = types.model({
 const RootStore = types
   .model({
     directMessageUser: types.array(DirectMsgUser),
+    isEmailEntered: types.boolean,
   })
   .actions((self) => ({
     addNewDirectMsgUser(user: { UID: string; displayName: string }) {
@@ -21,10 +22,15 @@ const RootStore = types
         self.directMessageUser[existingIndex].displayName = user.displayName;
       }
     },
+    setEmailEntered(isEntered: boolean) {
+      console.log(isEntered, "isEntered");
+      self.isEmailEntered = isEntered;
+    },
   }));
 
 const store = RootStore.create({
   directMessageUser: [],
+  isEmailEntered: false,
 });
 
 export default store;

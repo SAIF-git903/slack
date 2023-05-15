@@ -13,7 +13,7 @@ function ItemDropDown({ title, isPlus }: ItemDropDownProps) {
   };
 
   const handlePlusClick = () => {
-    navigate("/direct-message");
+    navigate("/");
   };
 
   return (

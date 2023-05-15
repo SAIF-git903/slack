@@ -1,60 +1,70 @@
-// import {
-//   collection,
-//   getDocs,
-//   where,
-//   query,
-//   doc,
-//   setDoc,
-// } from "@firebase/firestore";
+import { Route, Routes, Navigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { observer } from "mobx-react-lite";
+import { auth } from "../firebase/firebaseConfig";
+import { onAuthStateChanged } from "firebase/auth";
 import Header from "../components/Header/Header";
 import SideBar from "../components/Sidebar/SideBar";
-import Chat from "../components/Chat/Chat.";
-import "./style.css";
-import { Route, Routes } from "react-router-dom";
 import ChatPage from "../pages/Chat";
 import DirectMessagesPage from "../pages/DirectMessage";
-import SignUp from "../pages/SignUp";
+import SignUpEmail from "../pages/SignUp";
+import SignUpPassword from "../pages/SignUp/index2";
+import store from "../Mst/Mst";
+import logo from "../assets/images/logo.png";
+import Profile from "../components/Profile";
+import "./style.css";
+import { Divider } from "antd";
 
 function Router() {
-  // let participantId = "9tGXtUlfYKbuQpJCGgQZCzcb0v33";
+  const [isLoadingAuthState, setIsLoadingAuthState] = useState(true);
 
-  // const createChatRoom = async (participantId: string) => {
-  //   // Create a new chat document with a unique ID
-  //   const newChatRef = doc(collection(db, "chats"));
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is signed in
+        const uid = user.uid;
+        console.log(`User ${uid} is signed in`);
+      } else {
+        // User is signed out
+        console.log("User is signed out");
+      }
 
-  //   // Add the authenticated user and the selected participant to the chat participants subcollection
-  //   await setDoc(
-  //     doc(newChatRef, "participants", "KvRpCd8U4JfICCOsrZPec20DO433"),
-  //     { active: true }
-  //   );
-  //   await setDoc(doc(newChatRef, "participants", participantId), {
-  //     active: true,
-  //   });
+      setIsLoadingAuthState(false);
+    });
 
-  //   console.log(newChatRef.id); // Return the ID of the new chat room document
-  // };
+    return () => unsubscribe();
+  }, []);
 
-  // useEffect(() => {
-  //   createChatRoom(participantId);
-  //   // async function getData() {
-  //   //   const q = query(
-  //   //     collection(db, "users")
-  //   //     // where("displayName", "==", "Saif")
-  //   //   );
-  //   //   const querySnapshot = await getDocs(q);
-  //   //   querySnapshot.forEach((doc) => {
-  //   //     // doc.data() is never undefined for query doc snapshots
-  //   //     console.log(doc.id, " => ", doc.data());
-  //   //   });
-  //   // }
-  //   // getData();
-  // }, []);
+  if (isLoadingAuthState) {
+    return (
+      <div className="centered" style={{ height: "100vh" }}>
+        <img
+          src={logo}
+          alt="splash-logo"
+          style={{ width: "30%", height: "30%", objectFit: "contain" }}
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="router-route-cont">
-      {false ? (
+      {!auth.currentUser ? (
         <Routes>
-          <Route path="/" element={<SignUp />} />
+          <Route
+            path="get-started/*"
+            element={<Navigate to="/get-started/enter-email" replace />}
+          />
+          <Route path="get-started">
+            <Route path="enter-email" element={<SignUpEmail />} />
+            {store.isEmailEntered && (
+              <Route path="enter-password" element={<SignUpPassword />} />
+            )}
+          </Route>
+          <Route
+            path="*"
+            element={<Navigate to="/get-started/enter-email" replace />}
+          />
         </Routes>
       ) : (
         <>
@@ -63,14 +73,16 @@ function Router() {
             <div className="sidebar-main-container">
               <SideBar />
             </div>
-            <div style={{ width: "100%" }}>
-              <Routes>
-                <Route path="/:userId" element={<ChatPage />} />
-                <Route
-                  path="/direct-message"
-                  element={<DirectMessagesPage />}
-                />
-              </Routes>
+            <div style={{ display: "flex", width: "100%" }}>
+              <div style={{ width: "100%" }}>
+                <Routes>
+                  <Route path="/" element={<DirectMessagesPage />} />
+                  <Route path="/:userId" element={<ChatPage />} />
+                </Routes>
+              </div>
+              <div style={{ width: "45%", borderLeft: "1px solid grey" }}>
+                <Profile />
+              </div>
             </div>
           </div>
         </>
@@ -79,4 +91,4 @@ function Router() {
   );
 }
 
-export default Router;
+export default observer(Router);

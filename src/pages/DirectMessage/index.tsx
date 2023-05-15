@@ -62,6 +62,7 @@ function DirectMessagesPage() {
   console.log(searchedUser, "user");
 
   return (
+    // <div style={{ display: "flex" }}>
     <div>
       <div style={{ marginLeft: "25px" }}>
         <h3>Direct Messages</h3>
@@ -102,6 +103,7 @@ function DirectMessagesPage() {
         </div>
       </div>
       <Divider style={{ margin: "0" }} />
+      {/* </div> */}
     </div>
   );
 }
