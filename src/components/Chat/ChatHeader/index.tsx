@@ -1,7 +1,7 @@
 import { Avatar, Badge, Divider } from "antd";
 import "./style.css";
 
-function ChatHeader({receiverName} : any) {
+function ChatHeader({ receiverName }: any) {
   return (
     <>
       <div className="chatheader-avatar-style">
@@ -18,7 +18,7 @@ function ChatHeader({receiverName} : any) {
           <h3>{receiverName}</h3>
         </div>
       </div>
-      <Divider style={{ margin: "10px 0 0 0 " }} />
+      <Divider style={{ margin: "17px 0 0 0 " }} />
     </>
   );
 }

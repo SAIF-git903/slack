@@ -1,0 +1,9 @@
+.centered > .ant-upload-wrapper {
+  width: fit-content;
+}
+.personal-detail-verify-container {
+  border: 1px solid rgb(201, 196, 196);
+  width: fit-content;
+  padding: 30px;
+  border-radius: 10px;
+}

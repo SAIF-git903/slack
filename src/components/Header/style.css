@@ -22,3 +22,9 @@
 .search-bar-margin {
   margin: 5;
 }
+
+.header-icons {
+  display: flex;
+  height: 20px;
+  gap: 20px;
+}

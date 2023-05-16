@@ -8,3 +8,15 @@
   width: 313px;
   color: #ffff;
 }
+.profile-comp-div {
+  width: 500px;
+  border-left: 1px solid #e1d8d8;
+  overflow: auto;
+  height: 100vh;
+}
+
+.loading-auth-img {
+  width: 30%;
+  height: 30%;
+  object-fit: contain;
+}

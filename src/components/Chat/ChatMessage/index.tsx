@@ -2,23 +2,23 @@ import { Avatar, Divider } from "antd";
 import React from "react";
 import "./style.css";
 import { DocumentData, doc, onSnapshot } from "firebase/firestore";
-import { db } from "../../../firebase/firebaseConfig";
-import moment from "moment"
+import { auth, db } from "../../../firebase/firebaseConfig";
+import moment from "moment";
 
 function ChatMessage({ senderName, message, timestamp }: any) {
   return (
     <div>
       <div style={{ display: "flex", gap: "10px", marginLeft: "25px" }}>
         <div>
-          <Avatar
-            src="https://ca.slack-edge.com/T03A7U0BX41-U04AM2QLZCZ-1bcd531b1e51-512"
-            shape="square"
-          />
+          <Avatar src={auth.currentUser?.photoURL} shape="square" />
         </div>
         <div className="special-div">
-          <div style={{ display: "flex", gap:"10px" }}>
+          <div style={{ display: "flex", gap: "10px" }}>
             <p style={{ marginTop: "0px", fontWeight: "bold" }}>{senderName}</p>
-            <div style={{  marginTop:"-15px", fontSize:"12px"}} className="centered"> 
+            <div
+              style={{ marginTop: "-15px", fontSize: "12px" }}
+              className="centered"
+            >
               <p>{timestamp}</p>
             </div>
           </div>

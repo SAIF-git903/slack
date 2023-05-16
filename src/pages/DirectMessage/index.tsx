@@ -50,7 +50,12 @@ function DirectMessagesPage() {
   };
 
   const handleNewDirectMsgUser = (user: {
-    name: { displayName: string };
+    name: {
+      displayName: string;
+      email: string;
+      phone: string | null;
+      photoURL: string;
+    };
     id: string;
   }) => {
     store.addNewDirectMsgUser({
@@ -62,7 +67,6 @@ function DirectMessagesPage() {
   console.log(searchedUser, "user");
 
   return (
-    // <div style={{ display: "flex" }}>
     <div>
       <div style={{ marginLeft: "25px" }}>
         <h3>Direct Messages</h3>
@@ -84,7 +88,15 @@ function DirectMessagesPage() {
             className="centered"
             placeholder="@somebody or somebody@example.com"
             options={searchedUser.map(
-              (user: { name: { displayName: string }; id: string }) => ({
+              (user: {
+                name: {
+                  displayName: string;
+                  email: string;
+                  phone: string | null;
+                  photoURL: string;
+                };
+                id: string;
+              }) => ({
                 key: user.name.displayName,
                 value: user.name.displayName,
                 className: "antd-demo-dynamic-option",
@@ -103,7 +115,6 @@ function DirectMessagesPage() {
         </div>
       </div>
       <Divider style={{ margin: "0" }} />
-      {/* </div> */}
     </div>
   );
 }

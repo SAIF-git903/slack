@@ -2,61 +2,53 @@ import React from "react";
 import logo from "../../assets/images/logo.png";
 import { Button, Input, Typography } from "antd";
 import {
-  signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   sendEmailVerification,
-  ActionCodeSettings,
 } from "firebase/auth";
-import { auth } from "../../firebase/firebaseConfig";
+import { auth, db } from "../../firebase/firebaseConfig";
 import { useLocation } from "react-router-dom";
+import { toast, Toaster } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import { doc, setDoc } from "firebase/firestore";
 
 function SignUpPassword() {
   const { Title } = Typography;
   const location = useLocation();
+  const navigate = useNavigate();
 
   const { state } = location;
   const [inputPassword, setInputPassword] = React.useState<string>("");
   const [passwordVisible, setPasswordVisible] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
   const handleSignUp = () => {
-    createUserWithEmailAndPassword(auth, state, inputPassword).then(
-      (userCredetial) => {
-        console.log(userCredetial);
-        signInWithEmailAndPassword(auth, state, inputPassword).then(
-          (userCredetial) => {
-            const user = auth.currentUser;
+    setIsLoading(true);
+    createUserWithEmailAndPassword(auth, state, inputPassword)
+      .then((userCredetial) => {
+        if (userCredetial.user) {
+          // const
+          // setDoc(ref)
 
-            const actionCodeSettings: ActionCodeSettings = {
-              url: "https://3548-103-131-212-131.ngrok-free.app/get-started/enter-email",
-              handleCodeInApp: true,
-            };
-
-            if (user) {
-              sendEmailVerification(user, actionCodeSettings)
-                .then(() => {
-                  console.log(
-                    "Verification code sent to " + auth.currentUser?.email
-                  );
-                })
-                .catch((error) => {
-                  console.log(error);
-                });
-            }
-          }
-        );
-      }
-    );
+          sendEmailVerification(userCredetial.user)
+            .then(() => {
+              setIsLoading(false);
+              navigate(
+                `/get-started/email-verified/${userCredetial.user.emailVerified}`
+              );
+              console.log(
+                "Verification code sent to " + auth.currentUser?.email
+              );
+            })
+            .catch((err) => {
+              setIsLoading(false);
+              console.log(err);
+            });
+        }
+      })
+      .catch((err) => {
+        toast.error(err.message, { position: "top-left" });
+      });
   };
-
-  // sendEmailVerification(auth.currentUser)
-  //   .then(() => {
-  //     // Email verification sent, set state to show message
-  //     console.log("Email verification sent to " + email);
-  //   })
-  //   .catch((error) => {
-  //     // Handle error
-  //     console.log(error);
-  //   });
 
   return (
     <div style={{ marginTop: "30px" }}>
@@ -110,6 +102,7 @@ function SignUpPassword() {
             borderRadius: "4px",
             background: "#611f69",
           }}
+          loading={isLoading}
           type="primary"
           block
           onClick={handleSignUp}
@@ -117,6 +110,7 @@ function SignUpPassword() {
           Submit
         </Button>
       </div>
+      <Toaster />
     </div>
   );
 }

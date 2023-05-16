@@ -1,6 +1,6 @@
 import React from "react";
 
-function ChatHeader2({receiverName}: any) {
+function ChatHeader2({ receiverName }: any) {
   return (
     <>
       <div className="chatHeader-user-profile-pic-container">
@@ -19,14 +19,11 @@ function ChatHeader2({receiverName}: any) {
         </div>
       </div>
       <div style={{ marginLeft: "25px" }}>
-        <div style={{ display: "flex" }}>
-          <p>This conversation is just between</p>
-          <p className="profile-tag-span-chatHeader centered">@{receiverName}</p>
-          <p>
-            and you. Check out their profile to learn more about them. View
-            Profile
-          </p>
-        </div>
+        <p>
+          This conversation is just between{" "}
+          <span className="profile-tag-span-chatHeader">@{receiverName}</span>{" "}
+          and you Check out their profile to learn more about them. View Profile
+        </p>
       </div>
     </>
   );

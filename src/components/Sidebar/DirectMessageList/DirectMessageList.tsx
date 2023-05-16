@@ -1,15 +1,22 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import ChannelList from "../ChannelList/ChannelList";
 import store from "../../../Mst/Mst";
 import { observer } from "mobx-react-lite";
 import { useNavigate, useLocation } from "react-router-dom";
 
 function DirectMessageList() {
-
   return (
     <>
       {store.directMessageUser.map((i) => {
-        return <ChannelList isMessage={true} listTitle={i.displayName} UserId={i.UID} />;
+        return (
+          <ChannelList
+            isMessage={true}
+            listTitle={i.displayName}
+            UserId={i.UID}
+            profilePic={i.photoURL}
+            phoneNum={i.phone}
+          />
+        );
       })}
     </>
   );

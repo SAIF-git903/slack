@@ -1,0 +1,60 @@
+.profile-close-icon {
+  margin-right: 20px;
+  padding: 10px;
+  border-radius: 5px;
+}
+.profile-close-icon:hover {
+  background-color: rgb(236, 235, 235);
+  cursor: pointer;
+}
+.profile-page-pic-avatar {
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+}
+.user-status-info {
+  display: flex;
+  gap: 10px;
+  height: 30px;
+  margin-top: -10px;
+  font-size: 15px;
+}
+
+.user-acive-or-not-div {
+  display: flex;
+  gap: 15px;
+  margin-left: 3px;
+}
+
+.contact-info-container {
+  display: flex;
+  gap: 20px;
+}
+
+.contact-icon > img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+.contact-info-para {
+  line-height: 14px;
+  font-size: 13px;
+  color: rgb(121, 113, 113);
+  font-weight: bold;
+}
+
+.contact-linkto {
+  line-height: 15px;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.contact-linkto:hover {
+  text-decoration: underline;
+}
+
+.contact-linkto > p {
+  margin-top: -10px;
+  color: #1264a3;
+}
