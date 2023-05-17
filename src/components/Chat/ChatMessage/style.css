@@ -1,0 +1,9 @@
+.chat-message-user-name {
+  margin-top: 0px;
+  font-weight: bold;
+}
+
+.chat-message-user-name:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}

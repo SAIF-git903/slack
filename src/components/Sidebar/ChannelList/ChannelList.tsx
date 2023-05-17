@@ -11,13 +11,15 @@ const ChannelList = ({
   UserId,
   onClick,
   profilePic,
-  photoURL,
   phoneNum,
+  email,
 }: SideBarListItemProps) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate(`/client/${UserId}`, { state: { listTitle, UserId } });
+    navigate(`/client/${UserId}`, {
+      state: { listTitle, UserId, profilePic, phoneNum, email },
+    });
   };
 
   return (
@@ -32,7 +34,7 @@ const ChannelList = ({
           </div>
         ) : (
           <div className="centered" style={{ marginLeft: "5px" }}>
-            <Avatar shape="square" size={"small"} />
+            <Avatar shape="square" src={profilePic} size={"small"} />
           </div>
         )}
         <div className="channel-list-para-div">

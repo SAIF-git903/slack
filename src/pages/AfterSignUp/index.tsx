@@ -1,16 +1,15 @@
 import { Button, Input, Result } from "antd";
-import { Link } from "react-router-dom";
 import { Upload } from "antd";
-import type { RcFile, UploadFile, UploadProps } from "antd/es/upload/interface";
+import type { UploadFile, UploadProps } from "antd/es/upload/interface";
 import React, { useState } from "react";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { auth, db, storage } from "../../firebase/firebaseConfig";
-import "./style.css";
 import { ArrowLeftOutlined, ArrowRightOutlined } from "@ant-design/icons";
 import { updateProfile } from "firebase/auth";
 import { toast, Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { doc, setDoc } from "firebase/firestore";
+import "./style.css";
 
 function AfterSignUp() {
   const [fileList, setFileList] = useState<UploadFile<any>[]>([]);
@@ -52,14 +51,17 @@ function AfterSignUp() {
         status: "active",
         email: auth.currentUser.email,
         phone: auth.currentUser.phoneNumber,
-      });
+        uid: auth.currentUser.uid,
+      })
+        .then(() => console.log("Successfull"))
+        .catch((errr) => toast.error(errr));
       if (auth.currentUser) {
         updateProfile(auth.currentUser, {
           displayName: inputName,
           photoURL: url,
         })
           .then(() => navigate("/"))
-          .catch((err) => console.log(err));
+          .catch((err) => toast.error(err));
       }
     }
   };
@@ -84,6 +86,7 @@ function AfterSignUp() {
               style={{
                 width: "200px",
               }}
+              required
               onChange={(e) => setInputName(e.target.value)}
             />
           </div>

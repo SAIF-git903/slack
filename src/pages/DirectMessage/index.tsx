@@ -31,9 +31,9 @@ function DirectMessagesPage() {
     const querySnapshot = await getDocs(q);
     const users: any[] = [];
     querySnapshot.forEach((doc) => {
-      if (search.length <= 3) {
+      if (search.length) {
         let singleUser = {
-          name: doc.data(),
+          data: doc.data(),
           id: doc.id,
         };
         users.push(singleUser);
@@ -50,17 +50,21 @@ function DirectMessagesPage() {
   };
 
   const handleNewDirectMsgUser = (user: {
-    name: {
+    data: {
       displayName: string;
       email: string;
-      phone: string | null;
+      phone?: string;
       photoURL: string;
     };
     id: string;
   }) => {
+    console.log(user.data, user.id, "in handle direct msg");
     store.addNewDirectMsgUser({
       UID: user.id,
-      displayName: user.name.displayName,
+      displayName: user.data.displayName,
+      email: user.data.email,
+      phone: user.data.phone,
+      photoURL: user.data.photoURL,
     });
   };
 
@@ -89,16 +93,16 @@ function DirectMessagesPage() {
             placeholder="@somebody or somebody@example.com"
             options={searchedUser.map(
               (user: {
-                name: {
+                data: {
                   displayName: string;
                   email: string;
-                  phone: string | null;
+                  phone?: string;
                   photoURL: string;
                 };
                 id: string;
               }) => ({
-                key: user.name.displayName,
-                value: user.name.displayName,
+                key: user.data.displayName,
+                value: user.data.displayName,
                 className: "antd-demo-dynamic-option",
                 label: (
                   <div
@@ -106,7 +110,7 @@ function DirectMessagesPage() {
                     onClick={() => handleNewDirectMsgUser(user)}
                   >
                     <Avatar shape="square" size={"small"} />
-                    <strong>{user.name.displayName}</strong>
+                    <strong>{user.data.displayName}</strong>
                   </div>
                 ),
               })

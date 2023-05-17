@@ -1,12 +1,11 @@
 import React from "react";
 import { Avatar, Badge, Tooltip, Dropdown, MenuProps } from "antd";
-import { SearchOutlined, UserOutlined } from "@ant-design/icons";
+import { SearchOutlined } from "@ant-design/icons";
+import { signOut } from "firebase/auth";
+import { auth } from "../../firebase/firebaseConfig";
 import store from "../../Mst/Mst";
 import profileIcon from "../../assets/icons/Profile.svg";
 import logoutIcon from "../../assets/icons/Logout.svg";
-import { signOut } from "firebase/auth";
-import { auth } from "../../firebase/firebaseConfig";
-import { useNavigate } from "react-router-dom";
 import "./style.css";
 
 function Header() {
@@ -62,7 +61,18 @@ function Header() {
         </div>
       ),
       key: "3",
-      onClick: () => store.handleIsUserProfileActive(true),
+      onClick: () => {
+        store.handleIsUserProfileActive(true);
+        if (auth.currentUser) {
+          store.setUserProfile({
+            UID: auth.currentUser?.uid,
+            photoURL: auth.currentUser?.photoURL || "",
+            phone: auth.currentUser?.phoneNumber,
+            displayName: auth.currentUser?.displayName || "",
+            email: auth.currentUser?.email || "",
+          });
+        }
+      },
     },
     {
       label: (

@@ -9,6 +9,7 @@ export interface SideBarListItemProps {
   UserId?: string;
   onClick?: () => void;
   profilePic?: string;
-  phoneNum?: string;
+  phoneNum?: string | null;
   photoURL?: string;
+  email?: string;
 }

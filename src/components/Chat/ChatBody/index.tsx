@@ -1,8 +1,8 @@
 import * as React from "react";
 import { ReactNode } from "react";
 import ChatMessage from "../ChatMessage";
-import { DocumentData, doc, onSnapshot } from "firebase/firestore";
-import { db } from "../../../firebase/firebaseConfig";
+import { DocumentData, doc, onSnapshot, getDoc } from "firebase/firestore";
+import { auth, db } from "../../../firebase/firebaseConfig";
 import { Divider } from "antd";
 
 interface ChatData {
@@ -19,7 +19,13 @@ const Chat = (props: ChatBodyProps) => {
   return <div>{props.children}</div>;
 };
 
-const ChatBody = ({ receiverName, chatId }: any) => {
+const ChatBody = ({
+  receiverName,
+  chatId,
+  UserId,
+  profilePic,
+  listTitle,
+}: any) => {
   const [chatMessages, setChatMessages] = React.useState<ChatData[]>([]);
   // const [msgTime, setMsgTime] = React.useState<string>("")
 
@@ -32,8 +38,6 @@ const ChatBody = ({ receiverName, chatId }: any) => {
     setChatMessages(messages);
   });
 
-  // console.log(msgTime, "msgTime")
-  
   return (
     <Chat>
       {chatMessages.map((chat: ChatData, index: number) => {
@@ -56,6 +60,9 @@ const ChatBody = ({ receiverName, chatId }: any) => {
               chatId={chatId}
               message={chat.text}
               timestamp={chat.time}
+              UserId={UserId}
+              profilePic={profilePic}
+              listTitle={listTitle}
             />
           </>
         );

@@ -3,8 +3,6 @@ import React, { useEffect, useState } from "react";
 import { observer } from "mobx-react-lite";
 import { auth } from "../firebase/firebaseConfig";
 import { onAuthStateChanged } from "firebase/auth";
-import { Divider } from "antd";
-import { useNavigate } from "react-router-dom";
 import Header from "../components/Header/Header";
 import SideBar from "../components/Sidebar/SideBar";
 import ChatPage from "../pages/Chat";
@@ -15,15 +13,13 @@ import store from "../Mst/Mst";
 import logo from "../assets/images/logo.png";
 import Profile from "../components/Profile";
 import PageNotAccessed from "../pages/PageNotAccessed";
-import "./style.css";
 import LoginForm from "../pages/Login";
 import AfterSignUp from "../pages/AfterSignUp";
-import { useLocation } from "react-router-dom";
+import "./style.css";
 
 function Router() {
   const [isLoadingAuthState, setIsLoadingAuthState] = useState(true);
   const [isUserAuthenticated, setIsUserAutheticated] = useState(false);
-  const navigate = useNavigate();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -55,35 +51,7 @@ function Router() {
     return () => unsubscribe();
   }, []);
 
-  console.log(auth.currentUser);
-  console.log(auth.currentUser?.emailVerified);
-
   let isEmailVerified: any = auth.currentUser && auth.currentUser.emailVerified;
-
-  // useEffect(() => {
-  //   console.log("Component re-rendered");
-
-  //   onAuthStateChanged(auth, (user) => {
-  //     if (user) {
-  //       // User is signed in
-  //       const uid = user.uid;
-  //       setIsUserAutheticated(true);
-  //       console.log(`User ${uid} is signed in`);
-
-  //       setInterval(async () => {
-  //         await user.reload(); // Refresh the user's data from the server
-
-  //         if (user.emailVerified) {
-  //           console.log("User's email has been verified.");
-  //         } else {
-  //           // navigate("/get-started/email-verified/false"); // Redirect unverified user to the email verification screen
-  //           console.log("User's email has not been verified.");
-  //         }
-  //       }, 10000);
-  //     }
-  //   });
-
-  // }, []);
 
   if (isLoadingAuthState) {
     return (
