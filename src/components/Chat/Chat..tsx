@@ -7,16 +7,17 @@ import ChatInput from "./ChatInput";
 import "./ChatStyle.css";
 import { useLocation } from "react-router-dom";
 import { auth, db } from "../../firebase/firebaseConfig";
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc, getFirestore } from "firebase/firestore";
 
 function Chat() {
   const location = useLocation();
-  let { UserId, listTitle } = location.state;
+  let { listTitle, UserId, profilePic, phoneNum, email } = location.state;
 
   const [chatRoomId, setChatRoomId] = React.useState<string>();
 
   useEffect(() => {
     console.log(auth.currentUser);
+    console.log(location.state);
   }, [location.state]);
 
   const currentUserUuid = auth.currentUser?.uid;
@@ -40,11 +41,24 @@ function Chat() {
 
   return (
     <React.Fragment>
-      <ChatHeader receiverName={location?.state?.listTitle} />
+      <ChatHeader
+        receiverName={location?.state?.listTitle}
+        receiverData={location.state}
+      />
       <div className="overflow-chat-scroll">
-        <ChatHeader2 receiverName={location?.state?.listTitle} />
+        <ChatHeader2
+          receiverName={location?.state?.listTitle}
+          receiverData={location.state}
+          UserId={UserId}
+        />
         <Divider />
-        <ChatBody receiverName={location?.state?.listTitle} chatId={chatId} />
+        <ChatBody
+          receiverName={location?.state?.listTitle}
+          chatId={chatId}
+          UserId={UserId}
+          profilePic={profilePic}
+          listTitle={listTitle}
+        />
       </div>
       <ChatInput chatId={chatId} receiverName={location?.state?.listTitle} />
     </React.Fragment>

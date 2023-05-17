@@ -1,11 +1,11 @@
 import React from "react";
 
-function ChatHeader2({ receiverName }: any) {
+function ChatHeader2({ receiverName, receiverData }: any) {
   return (
     <>
       <div className="chatHeader-user-profile-pic-container">
         <img
-          src="https://ca.slack-edge.com/T03A7U0BX41-U04AM2QLZCZ-1bcd531b1e51-512"
+          src={receiverData.profilePic}
           className="chatHeader-user-profile-pic"
           alt="user-profile-pic"
         />

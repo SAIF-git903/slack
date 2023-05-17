@@ -24,7 +24,6 @@ const LoginForm = () => {
       .catch((err) => {
         toast.error(err.message, { position: "top-left" });
         setIsLoading(false);
-        console.log(err);
       });
   };
 

@@ -41,7 +41,7 @@ function SignUpPassword() {
             })
             .catch((err) => {
               setIsLoading(false);
-              console.log(err);
+              toast.error(err.message, { position: "top-left" });
             });
         }
       })

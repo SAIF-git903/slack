@@ -2,9 +2,19 @@ import React from "react";
 import { PoweroffOutlined, SendOutlined } from "@ant-design/icons";
 import { Button, Input } from "antd";
 import "./style.css";
-import { arrayUnion, doc, updateDoc } from "firebase/firestore";
+import {
+  arrayUnion,
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  updateDoc,
+  where,
+} from "firebase/firestore";
 import { auth, db } from "../../../firebase/firebaseConfig";
 import moment from "moment";
+import { toast, Toaster } from "react-hot-toast";
 
 interface ChatInputProps {
   chatId: string;
@@ -18,8 +28,22 @@ function ChatInput(props: ChatInputProps) {
     setInputMsg(e.target.value);
   };
 
+  async function getData() {
+    console.log("get data working as expected");
+    const q = query(
+      collection(db, "users"),
+      where("displayName", ">=", auth?.currentUser?.displayName),
+      where("displayName", "<=", auth?.currentUser?.displayName + "\uf8ff")
+    );
+    const querySnapshot = await getDocs(q);
+
+    querySnapshot.forEach((res) => {
+      console.log(res.data().photoURL);
+    });
+  }
+
   const handleSendMessage = () => {
-    console.log(props.chatId);
+    getData();
 
     let emailSplit: any = auth.currentUser?.email;
 
@@ -31,11 +55,13 @@ function ChatInput(props: ChatInputProps) {
       isRead: false,
     };
 
+    setInputMsg("");
     const chatRef = doc(db, "chats", props.chatId);
-
     updateDoc(chatRef, {
       messages: arrayUnion(message),
-    });
+    })
+      .then(() => "")
+      .catch((err) => toast.error(err.message));
   };
 
   return (
@@ -45,14 +71,17 @@ function ChatInput(props: ChatInputProps) {
           placeholder={`Message ${props.receiverName}`}
           className="chat-input-input"
           onChange={handleOnChangeInput}
+          value={inputMsg}
         />
         <Button
           type="primary"
+          disabled={inputMsg?.length ? false : true}
           style={{ background: "#007a5a", marginRight: "10px" }}
           icon={<SendOutlined />}
           onClick={handleSendMessage}
         />
       </div>
+      <Toaster />
     </div>
   );
 }

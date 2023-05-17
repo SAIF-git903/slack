@@ -14,17 +14,6 @@ type SideBarProps = {
 
 const SideBar = () => {
   const navigate = useNavigate();
-  // async function getData() {
-  //   const q = query(collection(db, "users"));
-  //   const querySnapshot = await getDocs(q);
-  //   querySnapshot.forEach((doc) => {
-  //     console.log(doc.id, " => ", doc.data());
-  //   });
-  // }
-
-  // useEffect(() => {
-  //   // getData();
-  // }, []);
 
   return (
     <div style={{ marginTop: "30px" }}>
